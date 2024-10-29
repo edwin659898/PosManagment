@@ -25,7 +25,9 @@ Auth::routes();
 route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+
 Route::get('/users', [UserController::class, 'index']);
+
 
 route::resource('/orders', 'OrderController');//orders.index
 route::resource('/suppliers', 'SuppliersController');//suppliers.index

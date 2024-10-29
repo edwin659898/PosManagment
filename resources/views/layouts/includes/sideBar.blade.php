@@ -11,7 +11,7 @@
        </li>
        <li> <a href="{{ route ('products.index') }}"><i class="fa fa-shop"></i> Products</a>
        </li>
-       <li> <a href=" "><i class="fa fa-tools"></i> Settings</a>
+       <li> <a href="{{ route ('settings.index') }}"><i class="fa fa-tools"></i> Settings</a>
        </li>
     </ul>
 

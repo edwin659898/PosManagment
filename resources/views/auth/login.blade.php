@@ -58,8 +58,14 @@
                       Login
                     </button>
                   </form>
-                  <hr>
-                   
+
+                  <div class="text-center">
+                    @if (Route::has('password.request'))
+                        <a class="btn btn-link small" href="{{ route('password.request') }}">
+                            {{ __('You do not have and account with us?') }}
+                        </a>
+                    @endif
+                  </div>
                   <div class="text-center">
                     @if (Route::has('password.request'))
                         <a class="btn btn-link small" href="{{ route('password.request') }}">

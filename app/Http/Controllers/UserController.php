@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+// namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -84,28 +85,13 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user=User::findOrFail($id);
-        $this->validate($request,
-        [
-            'name'=>'string|required|max:30',
-            'email'=>'string|required',
-            'role'=>'required|in:admin,user',
-            'status'=>'required|in:active,inactive',
-            'photo'=>'nullable|string',
-        ]);
-        // dd($request->all());
-        $data=$request->all();
-        // dd($data);
-        
-        $status=$user->fill($data)->save();
-        if($status){
-            request()->session()->flash('success','Successfully updated');
+        $users = User::find($id);
+        if (!$users){
+            return back()->with('Error', 'User not Found');
         }
-        else{
-            request()->session()->flash('error','Error occured while updating');
-        }
-        return redirect()->route('users.index');
-
+        $users->update($request->all());
+        return back()->with('Success', 'User Updated Successfully!');
+                
     }
 
     /**
@@ -116,14 +102,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $delete=User::findorFail($id);
-        $status=$delete->delete();
-        if($status){
-            request()->session()->flash('success','User Successfully deleted');
+        $users = User::find($id);
+        if (!$users){
+            return back()->with('Error', 'User not Found');
         }
-        else{
-            request()->session()->flash('error','There is an error while deleting users');
-        }
-        return redirect()->route('users.index');
+        $users->delete();
+        return back()->with('Success', 'User Delete Successfully!');
+                
     }
 }

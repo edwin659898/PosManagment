@@ -39,11 +39,104 @@
 
                                     <td>
                                         <div class="btn-group">
-                                            <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editUser"><i class="fa fa-edit"></i>Edit</a>
-                                            <a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteUser"><i class="fa fa-trash"></i>Delete</a>
+                                            <a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#editUser{{ $user->id }}"><i class="fa fa-edit"></i>Edit</a>
+                                            <a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteUser{{ $user->id }}"><i class="fa fa-trash"></i>Delete</a>
                                         </div>
                                     </td>
                                 </tr>
+
+                                <!-- Modal Edit user -->
+<div class="modal right fade" id="editUser {{ $user->name }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{ $user->id }}
+        </div>
+        <div class="modal-body">
+            <form action="{{ route ('users.update', $user->id) }}" method="post">
+            @csrf
+            @method('put')
+            <div class="form-group">
+                <label for="">Name</label>
+                <input type="text" name="name" id="" value="{{ $user->name }}" class="form-control"> 
+             </div>
+             <div class="form-group">
+                <label for="">Email</label>
+                <input type="email" name="email" id="" value="{{ $user->email }}" class="form-control"> 
+             </div>
+             <div class="form-group">
+                <label for="">Phone</label>
+                <input type="text" name="phone" id="" value="{{ $user->phone }}" class="form-control"> 
+             </div>
+             <div class="form-group">
+                <label for="">Password</label>
+                <input type="password" name="Password" readonly value="{{ $user->password }}" id="" class="form-control"> 
+             </div>
+             {{-- <div class="form-group">
+                <label for="">Confirm Password</label>
+                <input type="password" name="confirm_password" id="" class="form-control"> 
+             </div> --}}
+             <div class="form-group">
+                <label for="">Role</label>
+                <select name="is_admin" id="" class="form_control">
+                    <option value="1" @if ($user->is_admin == 1)
+                        selected
+                    @endif>Admin</option>
+                    <option value="2" @if ($user->is_admin == 2)
+                        selected
+                    @endif>cashier</option>
+                    <option value="3" @if ($user->is_admin == 3)
+                        selected
+                    @endif>employee</option>
+                </select>
+             </div>
+             <div class="modal-footer">
+                <button class="btn btn-warning btn-block">Update User</button>
+             </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{{-- pass here here Edit model --}}
+
+
+<!-- Modal Delete user -->
+<div class="modal right fade" id="deleteUser {{ $user->name }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete user</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          {{ $user->id }}
+        </div>
+        <div class="modal-body">
+            <form action="{{ route ('users.destroy', $user->id) }}" method="post">
+            @csrf
+            @method('delete')
+            <p> Are you sure you want to Delete this user {{ $user->name }}?</p>
+             
+             
+             <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
+             </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{{-- pass here here Delete model --}}
+
+
                                 @endforeach
 
                             </tbody>
@@ -68,7 +161,7 @@
 
 
 
-<!-- Modal -->
+<!-- Modal add user -->
 <div class="modal right fade" id="addUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -118,7 +211,7 @@
     </div>
   </div>
 
-
+{{-- pass here here --}}
 
 
   <style>

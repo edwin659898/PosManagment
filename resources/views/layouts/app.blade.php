@@ -141,6 +141,10 @@
         text-transform: uppercase;
 
     }
+    .card-header{
+        background: rgb(52, 73, 94);
+        color: #fff; 
+    }
 
     </style>
 
